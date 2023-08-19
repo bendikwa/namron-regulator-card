@@ -7,9 +7,10 @@ class NamronRegulatorCard extends HTMLElement {
         const state = hass.states[entityId];
         const stateStr = state ? state.state : "unavailable";
         const attributes = state ? state.attributes : null;
-        const displayName = attributes ? attributes.friendlyName : entityId;
+        const displayName = attributes ? attributes.friendly_name : entityId;
 
         if (!this.content) {
+            console.log()
             this.innerHTML = `
         <ha-card header="${displayName}">
           <div class="card-content"></div>
@@ -19,7 +20,7 @@ class NamronRegulatorCard extends HTMLElement {
         }
 
         this.content.innerHTML = `
-      The state of the regulator is ${stateStr}!
+      The regulator is set to ${stateStr}!
     `;
     }
 
