@@ -1,4 +1,5 @@
-class NamronRegulatorCard extends HTMLElement {
+var $15ae9e50c68bffbb$exports = {};
+class $15ae9e50c68bffbb$var$NamronRegulatorCard extends HTMLElement {
     // Whenever the state changes, a new `hass` object is set. Use this to
     // update your content.
     set hass(hass) {
@@ -11,30 +12,27 @@ class NamronRegulatorCard extends HTMLElement {
       `;
             this.content = this.querySelector("div");
         }
-
         const entityId = this.config.entity;
         const state = hass.states[entityId];
         const stateStr = state ? state.state : "unavailable";
-
         this.content.innerHTML = `
-      The state of ${entityId} is ${stateStr}!
+      The state of ${entityId} has state ${stateStr}!
     `;
     }
-
     // The user supplied configuration. Throw an exception and Home Assistant
     // will render an error card.
     setConfig(config) {
-        if (!config.entity) {
-            throw new Error("You need to define an entity");
-        }
+        if (!config.entity) throw new Error("You need to define an entity");
         this.config = config;
     }
-
     // The height of your card. Home Assistant uses this to automatically
     // distribute all cards over the available columns.
     getCardSize() {
         return 3;
     }
 }
+customElements.define("namron-regulator-card", $15ae9e50c68bffbb$var$NamronRegulatorCard);
 
-customElements.define("namron-regulator-card", NamronRegulatorCard);
+
+export {$15ae9e50c68bffbb$exports as default};
+//# sourceMappingURL=regulator.js.map

@@ -1,0 +1,16 @@
+{
+  "source": "src/regulator.js",
+  "main": "dist/regulator.js",
+  "targets": {
+    "module": {
+      "includeNodeModules": true
+    }
+  },
+  "scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build"
+  },
+  "devDependencies": {
+    "parcel": "^2.9.3"
+  }
+}
