@@ -19,7 +19,7 @@ class NamronRegulatorCard extends HTMLElement {
         this.content.innerHTML = `
       The state of ${entityId} is ${stateStr}!
       <br><br>
-      <img src="http://via.placeholder.com/350x150">
+      <img src="https://via.placeholder.com/350x150">
     `;
     }
 
