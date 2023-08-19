@@ -3,19 +3,21 @@ class $a36dfa2dcee8a284$var$NamronRegulatorCard extends HTMLElement {
     // update your content.
     set hass(hass) {
         // Initialize the content if it's not there yet.
+        const entityId = this.config.entity;
+        const state = hass.states[entityId];
+        const stateStr = state ? state.state : "unavailable";
+        const attributes = state ? state.attributes : null;
+        const displayName = attributes ? attributes.friendlyName : entityId;
         if (!this.content) {
             this.innerHTML = `
-        <ha-card header="Example-card">
+        <ha-card header="${displayName}">
           <div class="card-content"></div>
         </ha-card>
       `;
             this.content = this.querySelector("div");
         }
-        const entityId = this.config.entity;
-        const state = hass.states[entityId];
-        const stateStr = state ? state.state : "unavailable";
         this.content.innerHTML = `
-      The state of ${entityId} has state ${stateStr}!
+      The state of the regulator is ${stateStr}!
     `;
     }
     // The user supplied configuration. Throw an exception and Home Assistant
