@@ -1,5 +1,5 @@
 {
-  "source": "src/regulator.js",
+  "source": "src/index.js",
   "main": "dist/regulator.js",
   "targets": {
     "module": {
@@ -11,6 +11,11 @@
     "build": "parcel build"
   },
   "devDependencies": {
+    "@parcel/transformer-inline-string": "^2.9.3",
     "parcel": "^2.9.3"
+  },
+  "dependencies": {
+    "@thomasloven/round-slider": "^0.6.0",
+    "lit": "^2.8.0"
   }
 }
