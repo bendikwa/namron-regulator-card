@@ -1,21 +1,26 @@
-import { html, LitElement, nothing } from 'lit';
+import { html, LitElement, TemplateResult, nothing } from 'lit';
 import styles from './card.styles';
+import { state } from "lit/decorators/state";
+
+import { HassEntity } from "home-assistant-js-websocket";
+import { HomeAssistant, LovelaceCardConfig } from "custom-card-helpers";
+
+interface Config extends LovelaceCardConfig {
+    header: string;
+    entity: string;
+}
+
 export class NamronRegulatorCard extends LitElement {
-    // private property
-    _hass;
-
     // internal reactive states
-    static get properties() {
-        return {
-            _header: { state: true },
-            _entity: { state: true },
-            _name: { state: true },
-            _state: { state: true },
-            _status: { state: true }
-        };
-    }
+    @state() _header: string | typeof nothing;
+    @state() _entity: string;
+    @state() _name: string;
+    @state() _state: HassEntity;
+    @state() _status: string;
 
-    setConfig(config) {
+    private _hass;
+
+    setConfig(config: Config) {
         this._header = config.header === "" ? nothing : config.header;
         this._entity = config.entity;
         // call set hass() to immediately adjust to a changed entity
@@ -25,7 +30,7 @@ export class NamronRegulatorCard extends LitElement {
         }
     }
 
-    set hass(hass) {
+    set hass(hass: HomeAssistant) {
         this._hass = hass;
         this._state = hass.states[this._entity];
         if (this._state) {
@@ -39,7 +44,7 @@ export class NamronRegulatorCard extends LitElement {
     static styles = styles;
 
     render() {
-        let content;
+        let content: TemplateResult;
         if (!this._state) {
             content = html`
                 <p class="error">
@@ -69,7 +74,7 @@ export class NamronRegulatorCard extends LitElement {
     }
     // event handling
 
-    doToggle(event) {
+    doToggle() {
         this._hass.callService("input_boolean", "toggle", {
             entity_id: this._entity
         });

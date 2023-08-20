@@ -1,12 +1,10 @@
 import { css, html, LitElement } from 'lit';
+import { state } from "lit/decorators/state";
+import {LovelaceCardConfig} from "custom-card-helpers";
 export class NamronRegulatorCardEditor extends LitElement {
-    static get properties() {
-        return {
-            _config: { state: true },
-        };
-    }
+    @state() _config: LovelaceCardConfig;
 
-    setConfig(config) {
+    setConfig(config: LovelaceCardConfig) {
         this._config = config;
     }
 
@@ -30,25 +28,26 @@ export class NamronRegulatorCardEditor extends LitElement {
                     <label class="label cell" for="header">Header:</label>
                     <input
                         @change="${this.handleChangedEvent}"
-                        class="value cell" id="header" value="${this._config.header}"></input>
+                        class="value cell" id="header" value="${this._config.header}">
                 </div>
                 <div class="row">
                     <label class="label cell" for="entity">Entity:</label>
                     <input
                         @change="${this.handleChangedEvent}"
-                        class="value cell" id="entity" value="${this._config.entity}"></input>
+                        class="value cell" id="entity" value="${this._config.entity}">
                 </div>
             </form>
         `;
     }
 
-    handleChangedEvent(changedEvent) {
+    handleChangedEvent(changedEvent: Event) {
+        const target = changedEvent.target as HTMLInputElement;
         // this._config is readonly, copy needed
-        var newConfig = Object.assign({}, this._config);
-        if (changedEvent.target.id == "header") {
-            newConfig.header = changedEvent.target.value;
-        } else if (changedEvent.target.id == "entity") {
-            newConfig.entity = changedEvent.target.value;
+        const newConfig = Object.assign({}, this._config);
+        if (target.id == "header") {
+            newConfig.header = target.value;
+        } else if (target.id == "entity") {
+            newConfig.entity = target.value;
         }
         const messageEvent = new CustomEvent("config-changed", {
             detail: { config: newConfig },
