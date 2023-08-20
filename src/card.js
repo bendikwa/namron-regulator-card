@@ -77,7 +77,7 @@ export class NamronRegulatorCard extends LitElement {
 
     // card configuration
     static getConfigElement() {
-        return document.createElement("namron-regulator-card-dev");
+        return document.createElement("namron-regulator-card-dev-editor");
     }
 
     static getStubConfig() {

@@ -1,6 +1,6 @@
 {
   "source": "src/index.js",
-  "main": "dist/regulator.js",
+  "module": "dist/regulator.js",
   "targets": {
     "module": {
       "includeNodeModules": true
@@ -15,7 +15,6 @@
     "parcel": "^2.9.3"
   },
   "dependencies": {
-    "@thomasloven/round-slider": "^0.6.0",
     "lit": "^2.8.0"
   }
 }
