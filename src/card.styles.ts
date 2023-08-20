@@ -51,4 +51,31 @@ export default css`
     align-content: center;
     flex-wrap: wrap;
   }
+  
+  #slider {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    max-width: 250px;
+    min-width: 100px;
+  }
+  
+  round-slider1 {
+    --round-slider-path-color: var(--slider-track-color);
+    --round-slider-bar-color: var(--mode-color);
+    padding-bottom: 10%;
+  }
+
+  #slider-center {
+    position: absolute;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    box-sizing: border-box;
+    border-radius: 100%;
+    left: 20px;
+    top: 20px;
+    text-align: center;
+    overflow-wrap: break-word;
+    pointer-events: none;
+  }
 `;
