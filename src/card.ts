@@ -1,9 +1,9 @@
-import {html, LitElement, TemplateResult, nothing, svg} from 'lit';
+import { html, LitElement, TemplateResult, nothing } from 'lit';
 import styles from './card.styles';
-import {state} from "lit/decorators/state";
+import { state } from "lit/decorators/state";
 
-import {HassEntity} from "home-assistant-js-websocket";
-import {HomeAssistant, LovelaceCardConfig} from "custom-card-helpers";
+import { HassEntity } from "home-assistant-js-websocket";
+import { HomeAssistant, LovelaceCardConfig } from "custom-card-helpers";
 
 interface Config extends LovelaceCardConfig {
     header: string;
@@ -44,55 +44,34 @@ export class NamronRegulatorCard extends LitElement {
     static styles = styles;
 
     render() {
-        const slider =
-            this._state.state === "unavailable"
-                ? html` <round-slider disabled="true"></round-slider> `
-                : html`
-                    <round-slider 
-                            value="50"
-                            step="10"
-                            
-                    ></round-slider>
-                `;
-
-        const currentTemperature = svg`
-            <svg viewBox="0 0 40 20">
-              <text
-                x="50%"
-                dx="1"
-                y="60%"
-                text-anchor="middle"
-                style="font-size: 13px;"
-              >
-                ${
-                this._state.state !== "unavailable" &&
-                50 != null &&
-                !isNaN(50)
-                    ? svg`
-                        50
-                        <tspan dx="-3" dy="-6.5" style="font-size: 4px;">
-                          50
-                        </tspan>
-                      `
-                    : nothing
-                }
-              </text>
-            </svg>
-          `;
-
+        let content: TemplateResult;
+        if (!this._state) {
+            content = html`
+                <p class="error">
+                    ${this._entity} is unavailable.
+                </p>
+            `;
+        } else {
+            content = html`
+                <dl class="dl">
+                    <dt class="dt">${this._name}</dt>
+                    <dd class="dd" @click="${this.doToggle}">
+                        <span class="toggle ${this._status}">
+                            <span class="button"></span>
+                        </span>
+                        <span class="value">${this._status}</span>
+                    </dd>
+                </dl>
+            `;
+        }
         return html`
-          <ha-card header="${this._header}">
-            <div class="content">
-              <div id="controls">
-                <div id="slider">
-                  ${slider}
+            <ha-card header="${this._header}">
+                <div class="card-content">
+                    ${content}
                 </div>
-              </div>
-            </div>
-          </ha-card>
+            </ha-card>
         `;
     }
-
     // event handling
 
     doToggle() {
@@ -111,17 +90,5 @@ export class NamronRegulatorCard extends LitElement {
             entity: "input_boolean.toggletest",
             header: "",
         };
-    }
-
-    private _dragEvent(e): void {
-        console.log("_dragEvent");
-    }
-
-    private _setTemperature(e): void {
-        console.log("_setTemperature");
-    }
-
-    public getCardSize(): number {
-        return 7;
     }
 }

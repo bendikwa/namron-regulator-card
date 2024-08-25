@@ -1182,33 +1182,6 @@ var $120c5a859c012378$export$2e2bcd8739ae039 = (0, $def2de46b9306e8a$export$dbf3
     align-content: center;
     flex-wrap: wrap;
   }
-  
-  #slider {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    max-width: 250px;
-    min-width: 100px;
-  }
-  
-  round-slider1 {
-    --round-slider-path-color: var(--slider-track-color);
-    --round-slider-bar-color: var(--mode-color);
-    padding-bottom: 10%;
-  }
-
-  #slider-center {
-    position: absolute;
-    width: calc(100% - 40px);
-    height: calc(100% - 40px);
-    box-sizing: border-box;
-    border-radius: 100%;
-    left: 20px;
-    top: 20px;
-    text-align: center;
-    overflow-wrap: break-word;
-    pointer-events: none;
-  }
 `;
 
 
@@ -1276,40 +1249,29 @@ class $a399cc6bbb0eb26a$export$663c3a2f480dfe74 extends (0, $ab210b2da7b39b9d$ex
         this.styles = (0, $120c5a859c012378$export$2e2bcd8739ae039);
     })();
     render() {
-        const slider = this._state.state === "unavailable" ? (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)` <round-slider disabled="true"></round-slider> ` : (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)`
-                    <round-slider 
-                            value="50"
-                            step="10"
-                    ></round-slider>
-                `;
-        const currentTemperature = (0, $f58f44579a4747ac$export$7ed1367e7fa1ad68)`
-            <svg viewBox="0 0 40 20">
-              <text
-                x="50%"
-                dx="1"
-                y="60%"
-                text-anchor="middle"
-                style="font-size: 13px;"
-              >
-                ${this._state.state !== "unavailable" && true && !isNaN(50) ? (0, $f58f44579a4747ac$export$7ed1367e7fa1ad68)`
-                        50
-                        <tspan dx="-3" dy="-6.5" style="font-size: 4px;">
-                          50
-                        </tspan>
-                      ` : (0, $f58f44579a4747ac$export$45b790e32b2810ee)}
-              </text>
-            </svg>
-          `;
+        let content;
+        if (!this._state) content = (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)`
+                <p class="error">
+                    ${this._entity} is unavailable.
+                </p>
+            `;
+        else content = (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)`
+                <dl class="dl">
+                    <dt class="dt">${this._name}</dt>
+                    <dd class="dd" @click="${this.doToggle}">
+                        <span class="toggle ${this._status}">
+                            <span class="button"></span>
+                        </span>
+                        <span class="value">${this._status}</span>
+                    </dd>
+                </dl>
+            `;
         return (0, $f58f44579a4747ac$export$c0bb0b647f701bb5)`
-          <ha-card header="${this._header}">
-            <div class="content">
-              <div id="controls">
-                <div id="slider">
-                  ${slider}
+            <ha-card header="${this._header}">
+                <div class="card-content">
+                    ${content}
                 </div>
-              </div>
-            </div>
-          </ha-card>
+            </ha-card>
         `;
     }
     // event handling
@@ -1327,15 +1289,6 @@ class $a399cc6bbb0eb26a$export$663c3a2f480dfe74 extends (0, $ab210b2da7b39b9d$ex
             entity: "input_boolean.toggletest",
             header: ""
         };
-    }
-    _dragEvent(e) {
-        console.log("_dragEvent");
-    }
-    _setTemperature(e) {
-        console.log("_setTemperature");
-    }
-    getCardSize() {
-        return 7;
     }
 }
 (0, $24c52f343453d62d$export$29e00dfd3077644b)([
