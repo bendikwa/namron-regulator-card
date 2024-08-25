@@ -3,8 +3,7 @@ import styles from './card.styles';
 import {state} from "lit/decorators/state";
 
 import {HassEntity} from "home-assistant-js-websocket";
-import {fireEvent, HomeAssistant, LovelaceCardConfig} from "custom-card-helpers";
-import {mdiDotsVertical} from "@mdi/js";
+import {HomeAssistant, LovelaceCardConfig} from "custom-card-helpers";
 
 interface Config extends LovelaceCardConfig {
     header: string;
@@ -19,11 +18,7 @@ export class NamronRegulatorCard extends LitElement {
     @state() _state: HassEntity;
     @state() _status: string;
 
-    private _hass: HomeAssistant;
-
-    public getCardSize(): number {
-        return 7;
-    }
+    private _hass;
 
     setConfig(config: Config) {
         this._header = config.header === "" ? nothing : config.header;
@@ -45,26 +40,22 @@ export class NamronRegulatorCard extends LitElement {
         }
     }
 
+
     static styles = styles;
 
     render() {
-
-        const name = this._name;
-        const value: string = "60";
-
         const slider =
             this._state.state === "unavailable"
-                ? html`
-                        <round-slider disabled="true"></round-slider> `
+                ? html` <round-slider disabled="true"></round-slider> `
                 : html`
-                        <round-slider
-                                value=${value}
-                                step="10"
-                                @value-changed=${this._setRegulatorValue}
-                        ></round-slider>
+                    <round-slider 
+                            value="50"
+                            step="10"
+                            
+                    ></round-slider>
                 `;
 
-        const currentRegulatorValue = svg`
+        const currentTemperature = svg`
             <svg viewBox="0 0 40 20">
               <text
                 x="50%"
@@ -73,9 +64,15 @@ export class NamronRegulatorCard extends LitElement {
                 text-anchor="middle"
                 style="font-size: 13px;"
               >
-                ${value 
+                ${
+                this._state.state !== "unavailable" &&
+                50 != null &&
+                !isNaN(50)
                     ? svg`
-                        ${value}%
+                        50
+                        <tspan dx="-3" dy="-6.5" style="font-size: 4px;">
+                          50
+                        </tspan>
                       `
                     : nothing
                 }
@@ -84,25 +81,15 @@ export class NamronRegulatorCard extends LitElement {
           `;
 
         return html`
-            <ha-card header="${this._header}">
-                <ha-icon-button
-                        class="more-info"
-                        .label="Show more info"
-                        .path=${mdiDotsVertical}
-                        @click=${this._handleMoreInfo}
-                        tabindex="0"
-                ></ha-icon-button>
-                <div class="content">
-                    <div id="controls">
-                        <div id="slider">
-                            ${slider}
-                            <div id="slider-center">
-                                <div id="temperature">${currentRegulatorValue}</div>
-                            </div>
-                        </div>
-                    </div>
+          <ha-card header="${this._header}">
+            <div class="content">
+              <div id="controls">
+                <div id="slider">
+                  ${slider}
                 </div>
-            </ha-card>
+              </div>
+            </div>
+          </ha-card>
         `;
     }
 
@@ -126,14 +113,15 @@ export class NamronRegulatorCard extends LitElement {
         };
     }
 
-    private _handleMoreInfo() {
-        fireEvent(this, "hass-more-info", {
-            entityId: this._entity,
-        });
+    private _dragEvent(e): void {
+        console.log("_dragEvent");
     }
 
-    private _setRegulatorValue(e): void {
-        console.log("_setRegulatorValue");
-        console.log(e.detail.value);
+    private _setTemperature(e): void {
+        console.log("_setTemperature");
+    }
+
+    public getCardSize(): number {
+        return 7;
     }
 }

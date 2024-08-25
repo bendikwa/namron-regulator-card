@@ -15,7 +15,6 @@
     "parcel": "^2.9.3"
   },
   "dependencies": {
-    "@mdi/js": "^7.2.96",
     "@thomasloven/round-slider": "^0.6.0",
     "custom-card-helpers": "^1.9.0",
     "home-assistant-js-websocket": "^8.2.0",
