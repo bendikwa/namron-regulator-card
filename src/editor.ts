@@ -1,6 +1,7 @@
-import { css, html, LitElement } from 'lit';
-import { state } from "lit/decorators/state";
+import {css, html, LitElement} from 'lit';
+import {state} from "lit/decorators/state";
 import {LovelaceCardConfig} from "custom-card-helpers";
+
 export class NamronRegulatorCardEditor extends LitElement {
     @state() _config: LovelaceCardConfig;
 
@@ -9,17 +10,19 @@ export class NamronRegulatorCardEditor extends LitElement {
     }
 
     static styles = css`
-            .table {
-                display: table;
-            }
-            .row {
-                display: table-row;
-            }
-            .cell {
-                display: table-cell;
-                padding: 0.5em;
-            }
-        `;
+        .table {
+            display: table;
+        }
+
+        .row {
+            display: table-row;
+        }
+
+        .cell {
+            display: table-cell;
+            padding: 0.5em;
+        }
+    `;
 
     render() {
         return html`
@@ -27,14 +30,14 @@ export class NamronRegulatorCardEditor extends LitElement {
                 <div class="row">
                     <label class="label cell" for="header">Header:</label>
                     <input
-                        @change="${this.handleChangedEvent}"
-                        class="value cell" id="header" value="${this._config.header}">
+                            @change="${this.handleChangedEvent}"
+                            class="value cell" id="header" value="${this._config.header}">
                 </div>
                 <div class="row">
                     <label class="label cell" for="entity">Entity:</label>
                     <input
-                        @change="${this.handleChangedEvent}"
-                        class="value cell" id="entity" value="${this._config.entity}">
+                            @change="${this.handleChangedEvent}"
+                            class="value cell" id="entity" value="${this._config.entity}">
                 </div>
             </form>
         `;
@@ -50,7 +53,7 @@ export class NamronRegulatorCardEditor extends LitElement {
             newConfig.entity = target.value;
         }
         const messageEvent = new CustomEvent("config-changed", {
-            detail: { config: newConfig },
+            detail: {config: newConfig},
             bubbles: true,
             composed: true,
         });

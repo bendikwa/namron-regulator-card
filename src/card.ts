@@ -1,13 +1,13 @@
-import { html, LitElement, TemplateResult, nothing } from 'lit';
-import styles from './card.styles';
+import { html, LitElement, TemplateResult, nothing } from "lit";
+import { styles } from "./card.styles";
 import { state } from "lit/decorators/state";
 
 import { HassEntity } from "home-assistant-js-websocket";
 import { HomeAssistant, LovelaceCardConfig } from "custom-card-helpers";
 
 interface Config extends LovelaceCardConfig {
-    header: string;
-    entity: string;
+  header: string;
+  entity: string;
 }
 
 export class NamronRegulatorCard extends LitElement {
@@ -30,15 +30,15 @@ export class NamronRegulatorCard extends LitElement {
         }
     }
 
-    set hass(hass: HomeAssistant) {
-        this._hass = hass;
-        this._state = hass.states[this._entity];
-        if (this._state) {
-            this._status = this._state.state;
-            let fn = this._state.attributes.friendly_name;
-            this._name = fn ? fn : this._entity;
-        }
+  set hass(hass: HomeAssistant) {
+    this._hass = hass;
+    this._state = hass.states[this._entity];
+    if (this._state) {
+      this._status = this._state.state;
+      let fn = this._state.attributes.friendly_name;
+      this._name = fn ? fn : this._entity;
     }
+  }
 
 
     static styles = styles;

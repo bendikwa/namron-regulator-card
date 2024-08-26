@@ -1,9 +1,9 @@
 import { NamronRegulatorCard } from "./card";
 import { NamronRegulatorCardEditor } from "./editor";
 declare global {
-    interface Window {
-        customCards: Array<Object>;
-    }
+  interface Window {
+    customCards: Array<Object>;
+  }
 }
 
 customElements.define(
