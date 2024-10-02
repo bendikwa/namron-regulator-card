@@ -2,7 +2,7 @@ import {css, html, LitElement} from 'lit';
 import {state} from "lit/decorators/state";
 import {LovelaceCardConfig} from "custom-card-helpers";
 
-export class NamronRegulatorCardEditor extends LitElement {
+export class InputNumberCardEditor extends LitElement {
     @state() _config: LovelaceCardConfig;
 
     setConfig(config: LovelaceCardConfig) {

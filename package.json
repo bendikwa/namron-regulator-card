@@ -1,6 +1,6 @@
 {
   "source": "src/index.ts",
-  "module": "dist/regulator.js",
+  "module": "dist/card.js",
   "targets": {
     "module": {
       "includeNodeModules": true
@@ -8,6 +8,7 @@
   },
   "scripts": {
     "watch": "parcel watch",
+    "deploy": "parcel build && scp -o MACs=hmac-sha2-512-etm@openssh.com -r dist/* root@home-assistant.int.bendikwa.com:/config/www/num",
     "build": "parcel build"
   },
   "devDependencies": {
@@ -15,6 +16,9 @@
     "parcel": "^2.12.0"
   },
   "dependencies": {
+    "@lit-labs/observers": "^2.0.3",
+    "@mdi/js": "^7.2.96",
+    "@thomasloven/round-slider": "^0.6.0",
     "custom-card-helpers": "^1.9.0",
     "home-assistant-js-websocket": "^9.4.0",
     "lit": "^3.2.0"

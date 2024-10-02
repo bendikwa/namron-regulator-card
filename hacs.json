@@ -1,5 +1,5 @@
 {
-  "name": "Namron Regulator card",
+  "name": "Input number card",
   "render_readme": true,
   "filename": "regulator.js",
   "content_in_root": false
