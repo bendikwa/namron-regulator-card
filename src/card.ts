@@ -175,8 +175,8 @@ export class InputNumberSlider extends LitElement {
                                     </span>
                                 </p>
                             </div>
-                            ${slider}
                             ${this._renderButtons()}
+                            ${slider}
                         </div>
                     </input-number-slider>
                 </div>

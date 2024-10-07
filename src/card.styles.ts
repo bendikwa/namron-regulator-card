@@ -95,7 +95,7 @@ export const styles = css`
         max-width: 336px;
     }
 
-    .round-slider {
+    .round-slider {        
         width: 320px;
     }
     
